@@ -15,7 +15,7 @@
  * @date 2024
  */
 #define OPENFIRE_VERSION 5.2
-#define OPENFIRE_CODENAME "Dawn"
+#define OPENFIRE_CODENAME "Dawn-Clock"
 
  // For custom builders, remember to check (COMPILING.md) for IDE instructions!
  // ISSUERS: REMEMBER TO SPECIFY YOUR USING A CUSTOM BUILD & WHAT CHANGES ARE MADE TO THE SKETCH; OTHERWISE YOUR ISSUE MAY BE CLOSED!
@@ -546,6 +546,12 @@ DFRobotIRPositionEx *dfrIRPos;
 //-----------------------------------------------------------------------------------------------------
 // The main show!
 void setup() {
+
+//enable 24 MHz clock on GPIO21 (small solder point on the back of the Waveshare RP2040 Zero, not available on other models)
+    #ifdef ARDUINO_WAVESHARE_RP2040_ZERO
+        clock_gpio_init(21, CLOCKS_CLK_GPOUT1_CTRL_AUXSRC_VALUE_CLK_USB, 2);
+    #endif
+
     // initialize EEPROM device. Arduino AVR has a 1k flash, so use that.
     EEPROM.begin(1024);
 
